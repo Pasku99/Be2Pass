@@ -1,0 +1,34 @@
+@import './variables.scss';
+@import './components/fonts.scss';
+@import './components/body.scss';
+@import './components/matcard.scss';
+@import './components/button.scss';
+@import './components/form.scss';
+@import './components/container.scss';
+@import './components/matdrawer.scss';
+@import './components/mattoolbar.scss';
+@import './components/matsidenav.scss';
+@import './components/modal-general.scss';
+@import './components/snackbar.scss';
+
+@include mat-core();
+
+// Create the theme object (a Sass map containing all of the palettes).
+$theme: mat-light-theme($primary, $accent, $warn);
+
+// Include theme styles for app.
+@include angular-material-theme($theme);
+
+// Include theme styles for your custom components.
+
+@include fonts($theme);
+@include body($theme);
+@include matcard($theme);
+@include button($theme);
+@include form($theme);
+@include container($theme);
+@include matdrawer($theme);
+@include mattoolbar($theme);
+@include matsidenav($theme);
+@include modalgeneral($theme);
+@include snackbar($theme);

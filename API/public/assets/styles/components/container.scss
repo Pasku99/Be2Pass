@@ -1,0 +1,20 @@
+// Import library functions for theme creation.
+@import '~@angular/material/theming';
+
+// Define a mixin that accepts a theme and outputs the theme-specific styles.
+@mixin container($theme) {
+  // Define any styles affected by the theme.
+
+  .container-wrap {
+    margin: 0 auto;
+    width: 100%;
+    height: 100vh;
+    position: relative;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    background-color: rgb(235 236 240);
+    min-height: 500px;
+  }
+}

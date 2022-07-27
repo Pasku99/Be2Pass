@@ -1,0 +1,14 @@
+// Import library functions for theme creation.
+@import '~@angular/material/theming';
+
+// Define a mixin that accepts a theme and outputs the theme-specific styles.
+@mixin matdrawer($theme) {
+  // Define any styles affected by the theme.
+
+  .mat-drawer-container {
+    background-color: rgb(245 246 250);
+  }
+  .mat-drawer-content {
+    padding: 16px;
+  }
+}
