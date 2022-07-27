@@ -1,0 +1,27 @@
+// Import library functions for theme creation.
+@import '~@angular/material/theming';
+
+// Define a mixin that accepts a theme and outputs the theme-specific styles.
+@mixin matsidenav($theme) {
+  // Define any styles affected by the theme.
+
+  .mat-drawer {
+    background-color: #ebecf0;
+    width: 80%;
+    max-width: 250px;
+  }
+  .mat-drawer-backdrop.mat-drawer-shown {
+    background-color: rgb(235 236 240 / 95%);
+  }
+  .mat-nav-list .mat-list-item:nth-child(odd) {
+    border-bottom: 1px solid rgba(255, 255, 255, 0.4);
+    box-shadow: 0 1px 1px 0 #e6e6ec;
+  }
+  .mat-nav-list .mat-list-item:nth-child(odd) {
+    border-bottom: 1px solid rgba(255, 255, 255, 0.4);
+    box-shadow: 0 1px 1px 0 #e6e6ec;
+  }
+  .mat-nav-list .mat-list-item .mat-icon {
+    margin-right: 8px;
+  }
+}

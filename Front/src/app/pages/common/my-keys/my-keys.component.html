@@ -1,0 +1,22 @@
+<div class="filter">
+  <mat-form-field class="example-form-field" appearance="fill">
+    <mat-label>Busca por nombre de servicio</mat-label>
+    <input matInput type="text" [(ngModel)]="searchText" (input)="search()" />
+  </mat-form-field>
+</div>
+<mat-grid-list
+  [cols]="breakpoint"
+  rowHeight="20rem"
+  [gutterSize]="'2rem'"
+  (window:resize)="onResize($event)"
+  style="margin-top: 1rem"
+>
+  <mat-grid-tile *ngFor="let key of keys">
+    <app-password-card [key]="key"></app-password-card>
+  </mat-grid-tile>
+  <mat-grid-tile
+    ><mat-icon class="add-icon" (click)="openCreateKeyDialog()"
+      >add_circle</mat-icon
+    ></mat-grid-tile
+  >
+</mat-grid-list>

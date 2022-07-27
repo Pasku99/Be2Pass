@@ -1,0 +1,26 @@
+<h2 mat-dialog-title>{{ title }}</h2>
+<div [formGroup]="form">
+  <mat-form-field class="full-width" appearance="standard">
+    <mat-label>{{ "name" | translate }} </mat-label>
+    <input matInput type="text" formControlName="name" />
+  </mat-form-field>
+
+  <mat-form-field class="full-width" appearance="standard">
+    <mat-label>{{ "first_surname" | translate }} </mat-label>
+    <input matInput type="text" formControlName="firstSurname" />
+  </mat-form-field>
+
+  <mat-form-field class="full-width" appearance="standard">
+    <mat-label>{{ "second_surname" | translate }} </mat-label>
+    <input matInput type="text" formControlName="secondSurname" />
+  </mat-form-field>
+
+  <mat-form-field class="full-width" appearance="standard">
+    <mat-label>{{ "email" | translate }} </mat-label>
+    <input matInput type="email" formControlName="email" />
+  </mat-form-field>
+</div>
+<mat-dialog-actions>
+  <button class="mat-raised-button" (click)="close()">Cancelar</button>
+  <button class="mat-raised-button mat-primary" (click)="save()">Añadir</button>
+</mat-dialog-actions>

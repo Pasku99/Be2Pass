@@ -1,0 +1,22 @@
+// Import library functions for theme creation.
+@import '~@angular/material/theming';
+
+// Define a mixin that accepts a theme and outputs the theme-specific styles.
+@mixin mattoolbar($theme) {
+  // Define any styles affected by the theme.
+
+  .mat-toolbar,
+  .mat-toolbar.mat-primary {
+    background-color: #ebecf0;
+    color: #333;
+    box-shadow: 0px 6px 8px rgb(177 181 196 / 75%),
+      0px 6px 10px rgb(177 181 196 / 15%),
+      inset 0 0 15px 15px rgb(255 255 255 / 10%),
+      inset 0 0 10px 10px rgb(255 255 255 / 10%);
+    z-index: 2;
+    border-bottom: 2px solid #e6e6ec;
+  }
+  .mat-toolbar .button {
+    color: #333;
+  }
+}

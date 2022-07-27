@@ -1,0 +1,31 @@
+<mat-grid-list
+  [cols]="breakpoint"
+  rowHeight="15rem"
+  [gutterSize]="'2rem'"
+  (window:resize)="onResize($event)"
+  style="margin-top: 1rem"
+>
+  <mat-grid-tile *ngFor="let employee of employees">
+    <mat-card>
+      <mat-card-content>
+        <div class="container">
+          <p style="margin-top: 1rem; text-align: center">
+            <mat-icon class="big-icon">person</mat-icon>
+          </p>
+          <p style="margin-top: 4rem; text-align: center">
+            {{ employee | fullName }}
+          </p>
+        </div>
+      </mat-card-content>
+      <mat-card-actions class="actions">
+        <mat-icon (click)="openEditDialog(employee)">edit</mat-icon>
+        <mat-icon>delete</mat-icon>
+      </mat-card-actions>
+    </mat-card>
+  </mat-grid-tile>
+  <mat-grid-tile
+    ><mat-icon class="big-icon" (click)="openDialog()"
+      >add_circle</mat-icon
+    ></mat-grid-tile
+  >
+</mat-grid-list>

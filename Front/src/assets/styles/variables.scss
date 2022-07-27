@@ -1,0 +1,19 @@
+@import "~@angular/material/theming";
+// TODO: Ajustar las variables para la personalización del tema
+// hue. Available color palettes: https://material.io/design/color/
+$primary: mat-palette($mat-gray, 900); // Color principal
+$accent: mat-palette($mat-blue, A200, A100, A400); // Secundario
+$warn: mat-palette($mat-red); // Aviso
+
+$projectLogo: "~/assets/img/svg/logotipo-blanco-transparente-ajustado.svg"; // Logo del proyecto
+$projectBackground: "~/assets/img/fondo-ucie.jpg"; // Fondo del proyecto
+// $projectLogo: "../app/project/assets/img/logo-ars.png";
+// $projectBackground: "../app/project/assets/img/fondo-ucie.jpg";
+
+$white: #ffffff;
+$opacity-black: mat-palette($mat-gray, 600);
+$bck-accent: mat-palette($accent, 500);
+$accent: $bck-accent;
+$avatar-gray: mat-palette($mat-gray, 800);
+$close-sesion: mat-palette($mat-gray, 600);
+$breadcrumb-first-element: mat-palette($mat-orange, 300);

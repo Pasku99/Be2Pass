@@ -1,0 +1,35 @@
+.mat-grid-tile {
+  overflow: unset !important;
+}
+
+.work-group {
+  text-align: center;
+  height: 100%;
+  padding: 1rem;
+}
+
+.title {
+  margin: 0;
+  position: relative;
+  top: 50%;
+  -ms-transform: translateY(-50%);
+  transform: translateY(-50%);
+}
+
+.big-icon {
+  transform: scale(5);
+  margin-bottom: -0.5rem;
+}
+
+mat-icon:hover {
+  cursor: pointer;
+}
+
+.actions {
+  margin-top: 10rem;
+  margin-left: 9rem;
+}
+
+mat-card-title:hover {
+  cursor: pointer;
+}

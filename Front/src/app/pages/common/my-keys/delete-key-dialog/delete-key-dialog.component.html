@@ -1,0 +1,22 @@
+<!-- <h2 mat-dialog-title>Eliminar clave</h2>
+<mat-dialog-content>
+  ¿Desea eliminar las claves, compartirlas con otro usuario o asumirlas?
+</mat-dialog-content>
+<mat-dialog-actions>
+  <button class="mat-raised-button mat-warn" (click)="close()">Eliminar</button>
+  <button class="mat-raised-button" (click)="save()">Compartir</button>
+  <button class="mat-raised-button mat-accent" (click)="save()">Asumir</button>
+</mat-dialog-actions> -->
+<h2 mat-dialog-title>Eliminar clave</h2>
+<mat-dialog-content>
+  ¿Desea eliminar las claves o compartirlas con otro usuario? En caso de
+  eliminarlas tenga en cuenta que el administrador tiene una copia de esta.
+</mat-dialog-content>
+<!-- <mat-dialog-content>
+  ¿Desea eliminar las claves o compartirlas con otro
+  usuario?</mat-dialog-content
+> -->
+<mat-dialog-actions>
+  <button class="mat-raised-button" (click)="close()">Cancelar</button>
+  <button class="mat-raised-button mat-warn" (click)="save()">Eliminar</button>
+</mat-dialog-actions>

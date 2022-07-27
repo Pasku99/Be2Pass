@@ -1,0 +1,95 @@
+<div class="container-wrap">
+  <form [formGroup]="form" (ngSubmit)="register()">
+    <mat-card class="card-wrap">
+      <mat-card-title class="title">{{
+        "register_company" | translate
+      }}</mat-card-title>
+      <mat-card-content>
+        <mat-form-field class="full-width" appearance="standard">
+          <mat-label
+            >{{ "name" | translate }}
+            {{ "administrator" | translate }}</mat-label
+          >
+          <input matInput type="text" formControlName="name" />
+        </mat-form-field>
+
+        <mat-form-field class="full-width" appearance="standard">
+          <mat-label
+            >{{ "first_surname" | translate }}
+            {{ "administrator" | translate }}</mat-label
+          >
+          <input matInput type="text" formControlName="firstSurname" />
+        </mat-form-field>
+
+        <mat-form-field class="full-width" appearance="standard">
+          <mat-label
+            >{{ "second_surname" | translate }}
+            {{ "administrator" | translate }}</mat-label
+          >
+          <input matInput type="text" formControlName="secondSurname" />
+        </mat-form-field>
+
+        <mat-form-field class="full-width" appearance="standard">
+          <mat-label
+            >{{ "TIN" | translate }}
+            {{ "administrator" | translate }}</mat-label
+          >
+          <input matInput type="text" formControlName="TIN" />
+        </mat-form-field>
+
+        <mat-form-field class="full-width" appearance="standard">
+          <mat-label
+            >{{ "email" | translate }}
+            {{ "administrator" | translate }}</mat-label
+          >
+          <input matInput type="email" formControlName="email" />
+        </mat-form-field>
+
+        <mat-form-field class="full-width" appearance="standard">
+          <mat-label>{{ "company_name" | translate }}</mat-label>
+          <input matInput type="text" formControlName="companyName" />
+        </mat-form-field>
+
+        <mat-form-field class="full-width" appearance="standard">
+          <mat-label
+            >{{ "NIF" | translate }} {{ "company" | translate }}</mat-label
+          >
+          <input matInput type="text" formControlName="companyTIN" />
+        </mat-form-field>
+
+        <mat-form-field class="full-width" appearance="standard">
+          <mat-label
+            >{{ "country" | translate }} {{ "company" | translate }}</mat-label
+          >
+          <input matInput type="text" formControlName="companyCountry" />
+        </mat-form-field>
+
+        <mat-form-field class="full-width" appearance="standard">
+          <mat-label
+            >{{ "password" | translate }}
+            {{ "administrator" | translate }}</mat-label
+          >
+          <input matInput type="password" formControlName="password" />
+        </mat-form-field>
+
+        <mat-form-field class="full-width" appearance="standard">
+          <mat-label
+            >{{ "confirm_password" | translate }}
+            {{ "administrator" | translate }}</mat-label
+          >
+          <input matInput type="password" formControlName="confirmPassword" />
+        </mat-form-field>
+
+        <mat-card-actions align="end">
+          <button mat-flat-button class="button" type="submit">
+            <fa-icon [icon]="faSpinner" *ngIf="waiting"></fa-icon>
+            {{ "sign_in" | translate }}
+          </button>
+          <button mat-flat-button class="button" routerLink="/login">
+            {{ "go_back_to_login" | translate }}
+          </button>
+        </mat-card-actions>
+      </mat-card-content>
+    </mat-card>
+  </form>
+</div>

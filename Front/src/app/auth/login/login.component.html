@@ -1,0 +1,46 @@
+<div class="container-wrap">
+  <form [formGroup]="form" (ngSubmit)="login()">
+    <h1>BE2PASS</h1>
+    <mat-card>
+      <mat-card-title class="title">{{ "login" | translate }}</mat-card-title>
+      <mat-card-content>
+        <mat-form-field class="full-width" appearance="standard">
+          <mat-label>{{ "email" | translate }}</mat-label>
+          <input matInput formControlName="email" />
+        </mat-form-field>
+
+        <mat-form-field class="full-width" appearance="standard">
+          <mat-label>{{ "password" | translate }}</mat-label>
+          <input matInput type="password" formControlName="password" />
+        </mat-form-field>
+
+        <mat-checkbox color="primary" formControlName="rememberMe">{{
+          "remember_me" | translate
+        }}</mat-checkbox>
+
+        <mat-card-actions align="end">
+          <button mat-flat-button type="submit" class="button">
+            <fa-icon [icon]="faSpinner" *ngIf="waiting"></fa-icon>
+            {{ "login" | translate }}
+          </button>
+          <button
+            mat-flat-button
+            type="button"
+            class="button"
+            routerLink="/register"
+          >
+            {{ "you_have_not_registered_yet" | translate }}
+          </button>
+          <button
+            mat-flat-button
+            type="button"
+            class="button"
+            (click)="openPasswordRecovery()"
+          >
+            {{ "forgot_the_password" | translate }}
+          </button>
+        </mat-card-actions>
+      </mat-card-content>
+    </mat-card>
+  </form>
+</div>

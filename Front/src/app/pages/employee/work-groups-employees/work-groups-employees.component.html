@@ -1,0 +1,22 @@
+<mat-grid-list
+  [cols]="breakpoint"
+  rowHeight="15rem"
+  [gutterSize]="'5rem'"
+  (window:resize)="onResize($event)"
+  style="margin-top: 1rem"
+>
+  <mat-grid-tile *ngFor="let workgroup of workgroups">
+    <mat-card class="work-group">
+      <mat-card-title
+        class="title"
+        [routerLink]="['/employee/work-groups', workgroup.id]"
+      >
+        {{ workgroup.name }}
+      </mat-card-title>
+      <mat-card-actions class="actions">
+        <mat-icon>edit</mat-icon>
+        <mat-icon>delete</mat-icon>
+      </mat-card-actions>
+    </mat-card>
+  </mat-grid-tile>
+</mat-grid-list>

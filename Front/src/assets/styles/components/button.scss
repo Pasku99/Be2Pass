@@ -1,0 +1,49 @@
+// Import library functions for theme creation.
+@import '~@angular/material/theming';
+
+// Define a mixin that accepts a theme and outputs the theme-specific styles.
+@mixin button($theme) {
+  // Define any styles affected by the theme.
+
+  .mat-flat-button,
+  .mat-flat-button.mat-primary {
+    background: rgb(235 236 240);
+    border-right: 2px solid #e6e6ec !important;
+    border-bottom: 2px solid #e6e6ec !important;
+    border-left: 2px solid rgba(255, 255, 255, 0.6) !important;
+    border-top: 2px solid rgba(255, 255, 255, 0.6) !important;
+    border-radius: 0.5rem !important;
+    color: #444 !important;
+    text-align: center;
+    outline: none !important;
+    cursor: pointer !important;
+    margin-bottom: 24px !important;
+    margin: 0;
+    transition: 0.2s ease-in-out;
+    box-shadow: 6px 6px 8px rgba(177, 181, 196, 0.75),
+      6px 6px 10px rgb(177, 181, 196, 0.15),
+      -6px -6px 14px rgb(255, 255, 255, 0.7),
+      -6px -6px 10px rgb(255, 255, 255, 0.5) !important;
+  }
+  .mat-flat-button:last-child {
+    margin-bottom: 0 !important;
+  }
+  .mat-flat-button:hover {
+    box-shadow: 2px 2px 4px rgba(177, 181, 196, 0.75),
+      2px 2px 2px rgb(177, 181, 196, 0.15),
+      -2px -2px 6px rgb(255, 255, 255, 0.7),
+      -2px -2px 4px rgb(255, 255, 255, 0.5) !important;
+    // box-shadow: -2px -2px 6px rgba(255, 255, 255, 0.6), -2px -2px 4px rgba(255, 255, 255, 0.4),
+    //   2px 2px 2px rgba(255, 255, 255, 0.05), 2px 2px 4px rgba(177, 181, 196, 0.1);
+  }
+  .mat-flat-button:active,
+  .mat-flat-button.active {
+    // box-shadow: 2px 2px 4px rgb(255, 255, 255, 0.075), 2px 2px 2px rgb(255, 255, 255, 0.15),
+    // -2px -2px 6px rgba(177, 181, 196, 0.7), -2px -2px 4px rgb(177, 181, 196, 0.5);
+    box-shadow: inset -2px -2px 6px rgba(255, 255, 255, 0.7),
+      inset -2px -2px 4px rgba(255, 255, 255, 0.5),
+      inset 2px 2px 2px rgba(255, 255, 255, 0.075),
+      inset 2px 2px 4px rgba(177, 181, 196, 0.35) !important;
+    border: 2px solid rgba(0, 0, 0, 0) !important;
+  }
+}

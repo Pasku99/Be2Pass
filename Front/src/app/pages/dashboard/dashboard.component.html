@@ -1,0 +1,85 @@
+<div
+  class="dashboard-container"
+  [class.dashboard-is-mobile]="mobileQuery.matches"
+>
+  <mat-toolbar color="primary" class="dashboard-toolbar">
+    <button
+      mat-icon-button
+      (click)="snav.toggle()"
+      class="button"
+      [@menubtn]="!this.loadCompleted || getMenuBtnToggle(snav.opened)"
+    >
+      <mat-icon>menu</mat-icon>
+    </button>
+    <h1 class="dashboard-app-name" [routerLink]="['/dashboard']">Be2Pass</h1>
+    <span class="dashboard-spacer"></span>
+    <button mat-icon-button [matMenuTriggerFor]="menu" aria-label="Idiomas">
+      <mat-icon>language</mat-icon>
+    </button>
+    <mat-menu #menu="matMenu" xPosition="before">
+      <button mat-menu-item (click)="setLanguageSpanish()">
+        <mat-icon>language</mat-icon>
+        <span>{{ "spanish" | translate }}</span>
+      </button>
+      <button mat-menu-item (click)="setLanguageEnglish()">
+        <mat-icon>language</mat-icon>
+        <span>{{ "english" | translate }}</span>
+      </button>
+    </mat-menu>
+    <button
+      mat-icon-button
+      aria-label="my_profile"
+      matTooltip="{{ 'my_profile' | translate }}"
+      [routerLink]="['/dashboard/profile']"
+    >
+      <mat-icon>person</mat-icon>
+    </button>
+    <button
+      mat-icon-button
+      aria-label="logout"
+      matTooltip="{{ 'logout' | translate }}"
+      (click)="signOut()"
+    >
+      <mat-icon>logout</mat-icon>
+    </button>
+  </mat-toolbar>
+
+  <mat-sidenav-container
+    class="dashboard-sidenav-container"
+    [style.marginTop.px]="mobileQuery.matches ? 56 : 0"
+  >
+    <mat-sidenav
+      #snav
+      [mode]="mobileQuery.matches ? 'over' : 'side'"
+      [fixedInViewport]="mobileQuery.matches"
+      fixedTopGap="56"
+      [opened]="mobileQuery.matches ? 'false' : 'true'"
+    >
+      <mat-nav-list class="mat-list-wrap">
+        <div
+          mat-list-item
+          class="mat-list"
+          *ngFor="let sec of sections; let i = index"
+        >
+          <button
+            mat-flat-button
+            [routerLink]="[sec.routerlink]"
+            class="nav-button"
+            [class.active]="linkActive(sec.routerlink)"
+            id="{{ i }}-btn"
+            (click)="mobileQuery.matches ? snav.toggle() : null"
+          >
+            <mat-icon>{{ sec.icon }}</mat-icon
+            >{{ sec.name }}
+          </button>
+        </div>
+      </mat-nav-list>
+    </mat-sidenav>
+
+    <mat-sidenav-content>
+      <div class="h-100">
+        <router-outlet></router-outlet>
+      </div>
+    </mat-sidenav-content>
+  </mat-sidenav-container>
+</div>

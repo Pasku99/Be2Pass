@@ -1,0 +1,22 @@
+// Import library functions for theme creation.
+@import '~@angular/material/theming';
+
+// Define a mixin that accepts a theme and outputs the theme-specific styles.
+@mixin snackbar($theme) {
+  // Define any styles affected by the theme.
+
+  .mat-snack-bar-container{
+    box-shadow: 6px 6px 8px rgb(177 181 196 / 75%), 6px 6px 10px rgb(177 181 196 / 15%), -6px -6px 14px rgb(255 255 255 / 70%), -6px -6px 10px rgb(255 255 255 / 50%) !important;
+    background: #f5f6fa;
+    border-right: 2px solid #e6e6ec !important;
+    border-bottom: 2px solid #e6e6ec !important;
+    border-left: 2px solid rgba(255, 255, 255, 0.6) !important;
+    border-top: 2px solid rgba(255, 255, 255, 0.6) !important;
+    border-radius: 0.5rem !important;
+    color: #444;
+  }
+  //hide scrollbar of textarea input
+  textarea.mat-input-element.cdk-textarea-autosize {
+    overflow: hidden !important;
+  }
+}

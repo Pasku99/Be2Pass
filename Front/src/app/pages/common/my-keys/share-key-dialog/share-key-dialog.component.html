@@ -1,0 +1,45 @@
+<h2 mat-dialog-title>Compartir con</h2>
+
+<mat-dialog-content>
+  <mat-form-field class="full-width">
+    <mat-chip-list #chipList>
+      <mat-chip
+        *ngFor="let employee of chipSelectedEmployees"
+        [selectable]="true"
+        [removable]="true"
+        (removed)="removeEmployee(employee)"
+      >
+        {{ employee.email }}
+        <mat-icon matChipRemove>cancel</mat-icon>
+      </mat-chip>
+      <input
+        placeholder="Añade empleados"
+        #employeeInput
+        [formControl]="employeeControl"
+        [matAutocomplete]="auto"
+        [matChipInputFor]="chipList"
+        [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
+        [matChipInputAddOnBlur]="true"
+        (matChipInputTokenEnd)="addEmployee($event)"
+      />
+    </mat-chip-list>
+    <mat-autocomplete
+      #auto="matAutocomplete"
+      (optionSelected)="employeeSelected($event)"
+    >
+      <mat-option
+        *ngFor="let thisEmployeeEmail of filteredEmployees | async"
+        [value]="thisEmployeeEmail"
+      >
+        {{ thisEmployeeEmail }}
+      </mat-option>
+    </mat-autocomplete>
+  </mat-form-field>
+</mat-dialog-content>
+
+<mat-dialog-actions>
+  <button class="mat-raised-button" (click)="close()">Cancelar</button>
+  <button class="mat-raised-button mat-primary" (click)="save()">
+    Compartir
+  </button>
+</mat-dialog-actions>

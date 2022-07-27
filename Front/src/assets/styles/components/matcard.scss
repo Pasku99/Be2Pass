@@ -1,0 +1,37 @@
+// Import library functions for theme creation.
+@import '~@angular/material/theming';
+
+// Define a mixin that accepts a theme and outputs the theme-specific styles.
+@mixin matcard($theme) {
+  // Define any styles affected by the theme.
+  .mat-card,
+  .mat-card:not([class*='mat-elevation-z']) {
+    box-shadow: 6px 6px 8px rgba(177, 181, 196, 0.75),
+      6px 6px 10px rgb(177, 181, 196, 0.15),
+      -6px -6px 14px rgb(255, 255, 255, 0.7),
+      -6px -6px 10px rgb(255, 255, 255, 0.5),
+      inset 0 0 15px 15px rgb(255 255 255 / 10%),
+      inset 0 0 10px 10px rgb(255 255 255 / 10%);
+    border: unset;
+    padding: 32px;
+    border-radius: 32px;
+    background-color: rgb(235 236 240);
+    width: calc(100% - 64px);
+    margin: 0 auto;
+    overflow: hidden;
+    border-radius: 32px;
+    border-right: 2px solid #e6e6ec;
+    border-bottom: 2px solid #e6e6ec;
+    border-left: 2px solid rgba(255, 255, 255, 0.6);
+    border-top: 2px solid rgba(255, 255, 255, 0.6);
+  }
+  .mat-card-title {
+    color: #333;
+  }
+  .mat-card-actions {
+    margin: 32px auto 0 auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+}
