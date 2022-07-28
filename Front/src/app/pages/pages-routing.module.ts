@@ -16,97 +16,91 @@ import { WorkGroupsEmployeesComponent } from './employee/work-groups-employees/w
 
 const routes: Routes = [
   {
-    path: '',
-    component: PagesLayoutComponent,
+    path: 'admin',
+    component: DashboardComponent,
+    data: {
+      rol: 'COMPANY_MANAGER',
+    },
     children: [
       {
-        path: 'admin',
-        component: DashboardComponent,
+        path: 'my-keys',
+        component: MyKeysComponent,
+        canActivate: [AuthGuard],
+        resolve: {
+          keys: MyKeysResolver,
+        },
         data: {
           rol: 'COMPANY_MANAGER',
         },
-        children: [
-          {
-            path: 'my-keys',
-            component: MyKeysComponent,
-            canActivate: [AuthGuard],
-            resolve: {
-              keys: MyKeysResolver,
-            },
-            data: {
-              rol: 'COMPANY_MANAGER',
-            },
-          },
-          {
-            path: 'employees',
-            component: EmployeesComponent,
-            canActivate: [AuthGuard],
-            data: {
-              rol: 'COMPANY_MANAGER',
-            },
-          },
-          {
-            path: 'work-groups',
-            component: WorkGroupsComponent,
-            canActivate: [AuthGuard],
-            data: {
-              rol: 'COMPANY_MANAGER',
-            },
-          },
-          {
-            path: 'work-groups/:workgroupId',
-            component: WorkGroupsKeysComponent,
-            canActivate: [AuthGuard],
-            data: {
-              rol: 'COMPANY_MANAGER',
-            },
-          },
-        ],
       },
       {
-        path: 'employee',
-        component: DashboardComponent,
+        path: 'employees',
+        component: EmployeesComponent,
+        canActivate: [AuthGuard],
+        data: {
+          rol: 'COMPANY_MANAGER',
+        },
+      },
+      {
+        path: 'work-groups',
+        component: WorkGroupsComponent,
+        canActivate: [AuthGuard],
+        data: {
+          rol: 'COMPANY_MANAGER',
+        },
+      },
+      {
+        path: 'work-groups/:workgroupId',
+        component: WorkGroupsKeysComponent,
+        canActivate: [AuthGuard],
+        data: {
+          rol: 'COMPANY_MANAGER',
+        },
+      },
+    ],
+  },
+  {
+    path: 'employee',
+    component: DashboardComponent,
+    data: {
+      rol: 'EMPLOYEE',
+    },
+    children: [
+      {
+        path: 'my-keys',
+        component: MyKeysComponent,
+        canActivate: [AuthGuard],
         data: {
           rol: 'EMPLOYEE',
         },
-        children: [
-          {
-            path: 'my-keys',
-            component: MyKeysComponent,
-            canActivate: [AuthGuard],
-            data: {
-              rol: 'EMPLOYEE',
-            },
-          },
-          {
-            path: 'shared-keys',
-            component: SharedKeysComponent,
-            canActivate: [AuthGuard],
-            data: {
-              rol: 'EMPLOYEE',
-            },
-          },
-          {
-            path: 'shared-keys/:ownerId',
-            component: SharedEmployeeKeysComponent,
-            canActivate: [AuthGuard],
-            data: {
-              rol: 'EMPLOYEE',
-            },
-            resolve: { keys: SharedEmployeeKeysResolver },
-          },
-          {
-            path: 'work-groups',
-            component: WorkGroupsEmployeesComponent,
-            canActivate: [AuthGuard],
-            data: {
-              rol: 'EMPLOYEE',
-            },
-            resolve: {
-              workgroups: WorkgroupsEmployeesResolver,
-            },
-          },
-        ],
+      },
+      {
+        path: 'shared-keys',
+        component: SharedKeysComponent,
+        canActivate: [AuthGuard],
+        data: {
+          rol: 'EMPLOYEE',
+        },
+      },
+      {
+        path: 'shared-keys/:ownerId',
+        component: SharedEmployeeKeysComponent,
+        canActivate: [AuthGuard],
+        data: {
+          rol: 'EMPLOYEE',
+        },
+        resolve: { keys: SharedEmployeeKeysResolver },
+      },
+      {
+        path: 'work-groups',
+        component: WorkGroupsEmployeesComponent,
+        canActivate: [AuthGuard],
+        data: {
+          rol: 'EMPLOYEE',
+        },
+        resolve: {
+          workgroups: WorkgroupsEmployeesResolver,
+        },
       },
     ],
   },

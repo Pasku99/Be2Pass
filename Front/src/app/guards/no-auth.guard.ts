@@ -14,10 +14,10 @@ export class NoAuthGuard implements CanActivate {
         if (!res) {
           switch (this.loginService.user.rol) {
             case 'COMPANY_MANAGER':
-              this.router.navigateByUrl('/admin/my-keys');
+              this.router.navigateByUrl('admin/my-keys');
               break;
             case 'EMPLOYEE':
-              this.router.navigateByUrl('/employee/my-keys');
+              this.router.navigateByUrl('employee/my-keys');
               break;
           }
         }

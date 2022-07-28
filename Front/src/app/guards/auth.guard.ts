@@ -25,7 +25,7 @@ export class AuthGuard implements CanActivate {
     return this.loginService.validateToken().pipe(
       tap((res) => {
         if (!res) {
-          this.router.navigateByUrl('/login');
+          this.router.navigateByUrl('login');
         } else {
           if (
             next.data['rol'] !== '*' &&
@@ -33,10 +33,10 @@ export class AuthGuard implements CanActivate {
           ) {
             switch (this.loginService.user.rol) {
               case 'COMPANY_MANAGER':
-                this.router.navigateByUrl('/admin/my-keys');
+                this.router.navigateByUrl('admin/my-keys');
                 break;
               case 'EMPLOYEE':
-                this.router.navigateByUrl('/employee/my-keys');
+                this.router.navigateByUrl('employee/my-keys');
                 break;
             }
           }
