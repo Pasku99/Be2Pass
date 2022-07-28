@@ -5,11 +5,11 @@
   </mat-form-field>
 </div>
 <mat-grid-list
+  class="card-list"
   [cols]="breakpoint"
   rowHeight="20rem"
   [gutterSize]="'2rem'"
   (window:resize)="onResize($event)"
-  style="margin-top: 1rem"
 >
   <mat-grid-tile *ngFor="let key of keys">
     <app-password-card [key]="key"></app-password-card>

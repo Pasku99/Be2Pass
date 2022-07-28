@@ -1,9 +1,9 @@
 <mat-grid-list
+  class="card-list"
   [cols]="breakpoint"
   rowHeight="15rem"
   [gutterSize]="'2rem'"
   (window:resize)="onResize($event)"
-  style="margin-top: 1rem"
 >
   <mat-grid-tile *ngFor="let employee of employees">
     <mat-card>
@@ -12,10 +12,10 @@
           class="container"
           [routerLink]="['/employee/shared-keys', employee?.id]"
         >
-          <p style="margin-top: 1rem; text-align: center">
+          <p class="person">
             <mat-icon class="big-icon">person</mat-icon>
           </p>
-          <p style="margin-top: 4rem; text-align: center">
+          <p class="employeeName">
             {{ employee | fullName }}
           </p>
         </div>

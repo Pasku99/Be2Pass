@@ -22,12 +22,9 @@
       formControlName="key"
       required
     />
-    <mat-icon
-      matSuffix
-      (click)="hide = !hide"
-      style="margin-bottom: -0.45rem"
-      >{{ hide ? "visibility_off" : "visibility" }}</mat-icon
-    >
+    <mat-icon class="hide-icon" matSuffix (click)="hide = !hide">{{
+      hide ? "visibility_off" : "visibility"
+    }}</mat-icon>
   </mat-form-field>
 
   <mat-form-field class="full-width" appearance="standard">

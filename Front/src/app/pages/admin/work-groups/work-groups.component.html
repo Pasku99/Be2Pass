@@ -1,9 +1,9 @@
 <mat-grid-list
+  class="card-list"
   [cols]="breakpoint"
   rowHeight="15rem"
   [gutterSize]="'5rem'"
   (window:resize)="onResize($event)"
-  style="margin-top: 1rem"
 >
   <mat-grid-tile *ngFor="let workgroup of workgroups">
     <mat-card class="work-group">
