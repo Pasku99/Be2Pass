@@ -39,10 +39,10 @@ app.use(helmet({
                 "'self'",
                 "https://cdnjs.cloudflare.com"
             ],
-            "script-src-attr": "'none'",
+            "script-src-attr": "'unsafe-inline'",
             "style-src": [
                 "'self'",
-                "https://cdnjs.cloudflare.com"
+                "'unsafe-inline'"
             ],
       },
     }
