@@ -1,7 +1,8 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { PagesLayoutComponent } from 'src/app/layouts/pages-layout/pages-layout.component';
 import { AuthGuard } from '../guards/auth.guard';
+import { AdminLogsComponent } from './admin/admin-logs/admin-logs.component';
+import { AdminLogsResolveer } from './admin/admin-logs/resolvers/admin-log.resolver';
 import { EmployeesComponent } from './admin/employees/employees.component';
 import { WorkGroupsKeysComponent } from './admin/work-groups/work-groups-keys/work-groups-keys.component';
 import { WorkGroupsComponent } from './admin/work-groups/work-groups.component';
@@ -55,6 +56,17 @@ const routes: Routes = [
         canActivate: [AuthGuard],
         data: {
           rol: 'COMPANY_MANAGER',
+        },
+      },
+      {
+        path: 'logs',
+        component: AdminLogsComponent,
+        canActivate: [AuthGuard],
+        data: {
+          rol: 'COMPANY_MANAGER',
+        },
+        resolve: {
+          logs: AdminLogsResolveer,
         },
       },
     ],

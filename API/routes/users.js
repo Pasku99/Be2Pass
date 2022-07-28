@@ -1,5 +1,5 @@
 const { Router } = require('express');
-const { createUser, createUserCompanyManager, getEmployees, editEmployeeByAdmin, getSharedEmployees } = require('../controllers/users');
+const { createUser, createUserCompanyManager, getEmployees, editEmployeeByAdmin, getSharedEmployees, getAdminLogs } = require('../controllers/users');
 const { check } = require('express-validator');
 const { validateJWT } = require('../middleware/validate-JWT');
 const { validateFields } = require('../middleware/validate-fields');
@@ -52,5 +52,12 @@ router.get('/shared', [
     check('companyId', 'El id de empresa es obligatorio').not().isEmpty().isMongoId(),
     validateFields,
 ], getSharedEmployees);
+
+router.get('/logs', [
+    validateJWT,
+    check('userId', 'El id de usuario es obligatorio').not().isEmpty().isMongoId(),
+    check('companyId', 'El id de empresa es obligatorio').not().isEmpty().isMongoId(),
+    validateFields,
+], getAdminLogs);
 
 module.exports = router;

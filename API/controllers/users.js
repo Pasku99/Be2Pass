@@ -1,92 +1,18 @@
 const User = require('../models/users');
 const Key = require('../models/keys');
 const Company = require('../models/companies'); 
+const Log = require('../models/logs'); 
 const bcrypt = require('bcrypt');
 const argon2 = require('argon2');
 const crypto = require('crypto');
 const nodemailer = require('nodemailer');
 const CryptoJS = require("crypto-js");
 const forge = require('node-forge');
+const geoip = require('geoip-lite');
 const { response } = require('express');
 const { infoToken } = require('../helpers/info-token');
 const { ObjectID } = require('bson');
-
-/*
-get / 
-<-- desde? el salto para buscar en la lista de usuarios
-    id? un identificador concreto, solo busca a este
---> devuleve todos los usuarios
-*/
-
-const getUsers = async(req, res) => {
-    // Para paginación
-    // Recibimos el desde si existe y establecemos el número de registros a devolver por pa´gina
-    const desde = Number(req.query.desde) || 0;
-    const registropp = Number(process.env.DOCSPERPAGE);
-    const texto = req.query.texto;
-    let textoBusqueda = '';
-    if (texto) {
-        textoBusqueda = new RegExp(texto, 'i');
-    }
-    // Obtenemos el ID de usuario por si quiere buscar solo un usuario
-    const id = req.query.id || '';
-
-    //await sleep(1000);
-    try {
-
-        // Solo puede listar usuarios un admin
-        const token = req.header('x-token');
-        // if (!((infoToken(token).rol === 'ROL_ADMIN') || (infoToken(token).id === id))) {
-        //     return res.status(400).json({
-        //         ok: false,
-        //         msg: 'No tiene permisos para listar usuarios',
-        //     });
-        // }
-
-        let usuarios, total;
-        // Si ha llegado ID, hacemos el get /id
-        if (id) {
-
-            [usuarios, total] = await Promise.all([
-                User.findById(id),
-                User.countDocuments()
-            ]);
-
-        }
-        // Si no ha llegado ID, hacemos el get / paginado
-        else {
-            if (texto) {
-                [usuarios, total] = await Promise.all([
-                    User.find({ $or: [{ username: textoBusqueda }, { email: textoBusqueda }] }).skip(desde).limit(registropp),
-                    User.countDocuments({ $or: [{ username: textoBusqueda }, { email: textoBusqueda }] })
-                ]);
-            } else {
-                [usuarios, total] = await Promise.all([
-                    User.find({}).skip(desde).limit(registropp),
-                    User.countDocuments()
-                ]);
-            }
-
-        }
-        res.json({
-            ok: true,
-            msg: 'getUsers',
-            users: usuarios.filter((user) => user.id !== infoToken(token).id),
-            page: {
-                desde,
-                registropp,
-                total
-            }
-        });
-
-    } catch (error) {
-        console.log(error);
-        return res.status(400).json({
-            ok: false,
-            msg: 'Error obteniendo usuarios'
-        });
-    }
-}
+const { formatDate } = require('../helpers/format-date');
 
 const createUserCompanyManager = async(req, res = response) => {
 
@@ -161,7 +87,6 @@ const createUserCompanyManager = async(req, res = response) => {
                 msg: 'Error saving user'
             });
         }
-
         res.json({
             ok: true,
             msg: 'Company manager and company created succesfully',
@@ -231,6 +156,14 @@ const createUser = async(req, res = response) => {
                     msg: 'Error creando el usuario.'
                 });
             }
+            const log = new Log({
+                companyId: savedEmployee.companyId,
+                level: 'info',
+                IP: req.ip,
+                type: 'Empleado creado con éxito',
+                date: new Date()
+            })
+            await log.save();
             const updatedCompany = await Company.findByIdAndUpdate(admin.companyId, 
                 {
                     $push: {employees: savedEmployee}
@@ -401,4 +334,57 @@ const getSharedEmployees = async(req, res = response) => {
     }
 }
 
-module.exports = { getUsers, createUser, createUserCompanyManager, getEmployees, editEmployeeByAdmin, getSharedEmployees }
+const getAdminLogs = async(req, res = response) => {
+    const token = req.header('x-token');
+    const userId = req.query.userId;
+    const companyId = req.query.companyId;
+    try {
+        if (!((infoToken(token).rol === 'COMPANY_MANAGER') || (infoToken(token).id === userId) || (infoToken(token).companyId === companyId))) {
+            return res.status(401).json({
+                ok: false,
+                msg: 'No tiene permisos para listar logs de la empresa',
+            });
+        }
+        const user = await User.findById(userId);
+        if (!user) {
+            return res.status(400).json({
+                ok: false,
+                msg: 'Usuario no encontrado'
+            });
+        }
+        const company = await Company.findById(companyId);
+        if (!company) {
+            return res.status(400).json({
+                ok: false,
+                msg: 'Empresa no encontrada'
+            });
+        }
+        const logs = await Log.find({ companyId: company.id });
+        if(!logs) {
+            return res.status(400).json({
+                ok: false,
+                msg: 'Error al obtener logs de la empresa',
+            });
+        }
+        res.json({
+            ok: true,
+            msg: 'Logs de la empresa obtenidos con éxito',
+            logs: logs.map((log) => ({
+                companyId: log.companyId, 
+                level: log.level,
+                country: (geoip.lookup(log.ip))?.country,
+                city: (geoip.lookup(log.ip))?.city,
+                type: log.type,
+                date: formatDate(log.date)
+            }))
+        })
+    } catch (error) {
+        console.log(error);
+        return res.status(400).json({
+            ok: false,
+            msg: 'Error al obtener empleados que le han compartido',
+        });
+    }
+}
+
+module.exports = { createUser, createUserCompanyManager, getEmployees, editEmployeeByAdmin, getSharedEmployees, getAdminLogs }

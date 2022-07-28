@@ -99,6 +99,11 @@ export class DashboardComponent implements OnInit, OnDestroy, AfterViewInit {
               routerlink: '/admin/employees',
               icon: 'group',
             },
+            {
+              name: this.translate.instant('logs'),
+              routerlink: '/admin/logs',
+              icon: 'insert_drive_file',
+            },
           ]
         : [
             {

@@ -75,14 +75,6 @@ const createKey = async(req, res = response) => {
                 });
             }
         }
-        // // Decrypt private key
-        // let keyBytes = CryptoJS.AES.decrypt(user.privateKey, masterPassword, {
-        //     mode: CryptoJS.mode.CTR,
-        //   });
-        // const decryptedPrivateKey = keyBytes.toString(CryptoJS.enc.Utf8);
-        // // Encrypt key with decrypted privated key
-        // const encryptedUserKey = CryptoJS.AES.encrypt(key, decryptedPrivateKey, { mode: CryptoJS.mode.CTR }).toString();
-
         // Create new key
         const newKey = new Key({
             key: key,
