@@ -33,14 +33,14 @@ router.put('/employee', [
 
 
 router.post('/manager', [
-    check('name', 'El nombre es obligatorio').not().isEmpty().isString().isLength({max: 20}),
-    check('firstSurname', 'El primer apellido es obligatorio').not().isEmpty().isString().isLength({max: 20}),
-    check('secondSurname', 'El segundo apellido no es correcto').optional().isString().isLength({max: 20}),
-    check('TIN', 'El TIN debe ser un identificador').not().isEmpty().isAlphanumeric().isLength({min: 7, max: 10}),
-    check('email', 'El email debe ser un email').not().isEmpty().isEmail().isLength({max: 20}),
-    check('companyName', 'El nombre de la compañía es obligatorio').not().isEmpty().isString().isLength({max: 20}),
-    check('companyTIN', 'El identificador de la empresa es obligatorio').not().isEmpty().isAlphanumeric().isLength({min: 7, max: 10}),
-    check('companyCountry', 'El país de la empresa es obligatorio').not().isEmpty().isString().isLength({max: 20}),
+    check('name', 'El nombre es obligatorio').not().isEmpty().isString().trim().escape().matches(/^[a-zA-Z\u00C0-\u00FF]*$/).isLength({max: 30}),
+    check('firstSurname', 'El primer apellido es obligatorio').not().isEmpty().isString().trim().escape().matches(/^[a-zA-Z\u00C0-\u00FF]*$/).isLength({max: 30}),
+    check('secondSurname', 'El segundo apellido no es correcto').optional().isString().trim().escape().matches(/^[a-zA-Z\u00C0-\u00FF]*$/).isLength({max: 30}),
+    check('TIN', 'El TIN debe ser un identificador').not().isEmpty().isAlphanumeric().escape().isLength({min: 7, max: 10}),
+    check('email', 'El email debe ser un email').not().isEmpty().isEmail().normalizeEmail().isLength({max: 50}),
+    check('companyName', 'El nombre de la compañía es obligatorio').not().isEmpty().isString().trim().escape().matches(/^[a-zA-Z0-9\u00C0-\u00FF]*$/).isLength({max: 30}),
+    check('companyTIN', 'El identificador de la empresa es obligatorio').not().isEmpty().isAlphanumeric().escape().isLength({min: 7, max: 10}),
+    check('companyCountry', 'El país de la empresa es obligatorio').not().isEmpty().isString().trim().escape().matches(/^[a-zA-Z\u00C0-\u00FF]*$/).isLength({max: 30}),
     check('password', 'La contraseña ha de tener mínimo 8 caracteres e incluir mayúsculas, minúsculas, números y símbolos').not().isEmpty().isStrongPassword({minLength: 8, minLowercase: 1, minUppercase: 1, minNumbers: 1, minSymbols: 1}),
     check('confirmPassword', 'La contraseña ha de tener mínimo 8 caracteres e incluir mayúsculas, minúsculas, números y símbolos').not().isEmpty().isStrongPassword({minLength: 8, minLowercase: 1, minUppercase: 1, minNumbers: 1, minSymbols: 1}),
     validateFields,
