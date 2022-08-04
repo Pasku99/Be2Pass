@@ -1,3 +1,9 @@
+<div class="filter">
+  <mat-form-field class="example-form-field" appearance="fill">
+    <mat-label>Busca por nombre de empleado</mat-label>
+    <input matInput type="text" [(ngModel)]="searchText" (input)="search()" />
+  </mat-form-field>
+</div>
 <mat-grid-list
   class="card-list"
   [cols]="breakpoint"
@@ -8,7 +14,7 @@
   <mat-grid-tile *ngFor="let employee of employees">
     <mat-card>
       <mat-card-content>
-        <div class="container">
+        <div class="container" [routerLink]="['/admin/employees', employee.id]">
           <p class="person">
             <mat-icon class="big-icon">person</mat-icon>
           </p>

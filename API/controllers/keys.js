@@ -3,6 +3,7 @@ const User = require('../models/users');
 const Company = require('../models/companies');
 const WorkGroup = require('../models/workgroups');
 const Transit = require('../models/transit');
+const crypto = require('crypto');
 const { infoToken } = require('../helpers/info-token');
 const { mapKeys } = require('../helpers/map-keys');
 const { response } = require('express');
@@ -46,6 +47,70 @@ const getMyKeys = async(req, res = response) => {
         });
     }
 }
+
+const getEmployeeKeys = async(req, res = response) => {
+    const token = req.header('x-token');
+    const companyId = req.params.companyId;
+    const adminId = req.params.adminId;
+    const employeeId = req.params.employeeId;
+    try {
+        if (!((infoToken(token).rol === 'COMPANY_MANAGER') || (infoToken(token).id === adminId) || (infoToken(token).companyId === companyId))) {
+            return res.status(401).json({
+                ok: false,
+                msg: 'No tiene permisos para listar empleados',
+            });
+        }
+        const company = await Company.findById(companyId); 
+        if(!company) {
+            return res.status(400).json({
+                ok: false,
+                msg: 'La empresa no existe',
+            });
+        }
+        const admin = await User.findById(adminId); 
+        if(!admin) {
+            return res.status(400).json({
+                ok: false,
+                msg: 'El administrador de la empresa no existe',
+            });
+        }
+        const employee = await User.findById(employeeId); 
+        if(!employee) {
+            return res.status(400).json({
+                ok: false,
+                msg: 'El empleado no existe',
+            });
+        }
+        const areSameCompany = crypto.timingSafeEqual(Buffer.from(employee.companyId), Buffer.from(admin.companyId));
+        if(!areSameCompany) {
+            return res.status(400).json({
+                ok: false,
+                msg: 'Error obteniendo claves del empleado'
+            });
+        }
+
+        const keys = await Key.find({ userId: employee.id, ownerId: employee.id });
+        if(!keys) {
+            return res.status(400).json({
+                ok: false,
+                msg: 'Error al obtener claves del empleado',
+            });
+        }
+
+        res.json({
+            ok: true,
+            msg: 'getMyKeys',
+            keys: await mapKeys(keys)
+        })
+    } catch (error) {
+        console.log(error);
+        return res.status(400).json({
+            ok: false,
+            msg: 'Error obteniendo claves del empleado'
+        });
+    }
+}
+
 
 const createKey = async(req, res = response) => {
     const token = req.header('x-token');
@@ -495,4 +560,4 @@ const getSharedKeys = async(req, res = response) => {
     }
 }
 
-module.exports = { getMyKeys, createKey, editKey, createWorkgroupKey, shareKey, transit, acceptKey, getSharedKeys }
+module.exports = { getMyKeys, getEmployeeKeys, createKey, editKey, createWorkgroupKey, shareKey, transit, acceptKey, getSharedKeys }

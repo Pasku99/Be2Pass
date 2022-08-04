@@ -2,7 +2,7 @@ const { Router } = require('express');
 const { check } = require('express-validator');
 const { validateJWT } = require('../middleware/validate-JWT');
 const { validateFields } = require('../middleware/validate-fields');
-const { getMyKeys, createKey, editKey, createWorkgroupKey, shareKey, transit, acceptKey, getSharedKeys } = require('../controllers/keys');
+const { getMyKeys, createKey, editKey, createWorkgroupKey, shareKey, transit, acceptKey, getSharedKeys, getEmployeeKeys } = require('../controllers/keys');
 
 const router = Router();
 
@@ -11,6 +11,14 @@ router.get('/', [
     check('id', 'El id es obligatorio').not().isEmpty().isMongoId(),
     validateFields,
 ], getMyKeys);
+
+router.get('/company/:companyId/admin/:adminId/employee/:employeeId', [
+    validateJWT,
+    check('companyId', 'El id de empresa es obligatorio').not().isEmpty().isMongoId(),
+    check('adminId', 'El id de administrador de la empresa es obligatorio').not().isEmpty().isMongoId(),
+    check('employeeId', 'El id de empleado es obligatorio').not().isEmpty().isMongoId(),
+    validateFields,
+], getEmployeeKeys);
 
 router.post('/', [
     validateJWT,

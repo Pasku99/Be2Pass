@@ -20,6 +20,17 @@ export class KeysService {
     );
   }
 
+  getEmployeesKeys(
+    companyId: string,
+    adminId: string,
+    employeeId: string
+  ): Observable<any> {
+    return this.http.get(
+      `${base_url}/${version}/keys/company/${companyId}/admin/${adminId}/employee/${employeeId}`,
+      this.headers
+    );
+  }
+
   createKey(key: Key, userId: string): Observable<any> {
     return this.http.post(
       `${base_url}/${version}/keys`,

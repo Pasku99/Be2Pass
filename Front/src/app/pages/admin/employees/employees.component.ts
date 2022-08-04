@@ -15,6 +15,7 @@ import { EmployeesService } from './services/employees.service';
 export class EmployeesComponent implements OnInit {
   breakpoint: number = 0;
   employees: Employee[] = [];
+  searchText: string = '';
 
   constructor(
     private readonly dialog: MatDialog,
@@ -100,6 +101,35 @@ export class EmployeesComponent implements OnInit {
         (foundEmployee) => foundEmployee.id === employee.id
       );
       this.employees[index] = employee;
+    }
+  }
+
+  search(): void {
+    if (this.searchText !== '') {
+      let searchValue = this.searchText
+        .toLocaleLowerCase()
+        .normalize('NFD')
+        .replace(/[\u0300-\u036f]/g, '');
+      this.employees = this.employees.filter(
+        (employee) =>
+          employee.name
+            ?.toLocaleLowerCase()
+            .normalize('NFD')
+            .replace(/[\u0300-\u036f]/g, '')
+            .match(searchValue) ||
+          employee.firstSurname
+            ?.toLocaleLowerCase()
+            .normalize('NFD')
+            .replace(/[\u0300-\u036f]/g, '')
+            .match(searchValue) ||
+          employee.secondSurname
+            ?.toLocaleLowerCase()
+            .normalize('NFD')
+            .replace(/[\u0300-\u036f]/g, '')
+            .match(searchValue)
+      );
+    } else {
+      this.ngOnInit();
     }
   }
 }

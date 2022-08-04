@@ -20,6 +20,12 @@ import { ShareKeyDialogComponent } from '../../common/my-keys/share-key-dialog/s
 export class PasswordCardComponent implements OnInit {
   @Input()
   key!: Key;
+  @Input()
+  canEdit: boolean = false;
+  @Input()
+  canShare: boolean = false;
+  @Input()
+  canDelete: boolean = false;
 
   faClipboard: IconDefinition = faClipboard;
   durationInSeconds: number = 5;

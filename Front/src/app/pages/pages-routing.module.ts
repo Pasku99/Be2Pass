@@ -3,7 +3,9 @@ import { RouterModule, Routes } from '@angular/router';
 import { AuthGuard } from '../guards/auth.guard';
 import { AdminLogsComponent } from './admin/admin-logs/admin-logs.component';
 import { AdminLogsResolveer } from './admin/admin-logs/resolvers/admin-log.resolver';
+import { EmployeeKeysComponent } from './admin/employees/employee-keys/employee-keys.component';
 import { EmployeesComponent } from './admin/employees/employees.component';
+import { EmployeesKeysResolver } from './admin/employees/resolvers/employees-keys.resolver';
 import { WorkGroupsKeysComponent } from './admin/work-groups/work-groups-keys/work-groups-keys.component';
 import { WorkGroupsComponent } from './admin/work-groups/work-groups.component';
 import { MyKeysComponent } from './common/my-keys/my-keys.component';
@@ -41,6 +43,15 @@ const routes: Routes = [
         data: {
           rol: 'COMPANY_MANAGER',
         },
+      },
+      {
+        path: 'employees/:employeeId',
+        component: EmployeeKeysComponent,
+        canActivate: [AuthGuard],
+        data: {
+          rol: 'COMPANY_MANAGER',
+        },
+        resolve: { keys: EmployeesKeysResolver },
       },
       {
         path: 'work-groups',
@@ -82,6 +93,9 @@ const routes: Routes = [
         path: 'my-keys',
         component: MyKeysComponent,
         canActivate: [AuthGuard],
+        resolve: {
+          keys: MyKeysResolver,
+        },
         data: {
           rol: 'EMPLOYEE',
         },

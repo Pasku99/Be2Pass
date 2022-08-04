@@ -10,6 +10,7 @@ import { HttpLoaderFactory } from '../app.module';
 import { PagesLayoutComponent } from '../layouts/pages-layout/pages-layout.component';
 import { FullNamePipe } from '../utils/pipes/full-name.pipe';
 import { AdminLogsComponent } from './admin/admin-logs/admin-logs.component';
+import { EmployeeKeysComponent } from './admin/employees/employee-keys/employee-keys.component';
 import { EmployeesComponent } from './admin/employees/employees.component';
 import { RegisterEmployeeComponentDialog } from './admin/employees/register-employee/register-employee-dialog.component';
 import { RegisterSingleEmployeeDialogComponent } from './admin/employees/register-employee/register-single-employee-dialog/register-single-employee-dialog.component';
@@ -52,6 +53,7 @@ import { WorkGroupsEmployeesComponent } from './employee/work-groups-employees/w
     SharedEmployeeKeysComponent,
     FullNamePipe,
     AdminLogsComponent,
+    EmployeeKeysComponent,
   ],
   exports: [
     PagesLayoutComponent,
@@ -75,6 +77,7 @@ import { WorkGroupsEmployeesComponent } from './employee/work-groups-employees/w
     SharedEmployeeKeysComponent,
     FullNamePipe,
     AdminLogsComponent,
+    EmployeeKeysComponent,
   ],
   imports: [
     CommonModule,
@@ -92,5 +95,6 @@ import { WorkGroupsEmployeesComponent } from './employee/work-groups-employees/w
       },
     }),
   ],
+  providers: [FullNamePipe],
 })
 export class PagesModule {}
