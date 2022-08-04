@@ -30,7 +30,11 @@
       mat-icon-button
       aria-label="my_profile"
       matTooltip="{{ 'my_profile' | translate }}"
-      [routerLink]="['/dashboard/profile']"
+      [routerLink]="
+        loginService.user.rol === 'COMPANY_MANAGER'
+          ? ['/admin/profile']
+          : ['/employee/profile']
+      "
     >
       <mat-icon>person</mat-icon>
     </button>

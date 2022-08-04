@@ -29,6 +29,7 @@ import { DashboardComponent } from './dashboard/dashboard.component';
 import { SharedEmployeeKeysComponent } from './employee/shared-keys/shared-employee-keys/shared-employee-keys.component';
 import { SharedKeysComponent } from './employee/shared-keys/shared-keys.component';
 import { WorkGroupsEmployeesComponent } from './employee/work-groups-employees/work-groups-employees.component';
+import { ProfileComponent } from './profile/profile.component';
 
 @NgModule({
   declarations: [
@@ -54,6 +55,7 @@ import { WorkGroupsEmployeesComponent } from './employee/work-groups-employees/w
     FullNamePipe,
     AdminLogsComponent,
     EmployeeKeysComponent,
+    ProfileComponent,
   ],
   exports: [
     PagesLayoutComponent,
@@ -78,6 +80,7 @@ import { WorkGroupsEmployeesComponent } from './employee/work-groups-employees/w
     FullNamePipe,
     AdminLogsComponent,
     EmployeeKeysComponent,
+    ProfileComponent,
   ],
   imports: [
     CommonModule,

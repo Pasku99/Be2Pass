@@ -1,0 +1,73 @@
+<form [formGroup]="form" (ngSubmit)="save()">
+  <h2 *ngIf="loginService.user.rol === 'COMPANY_MANAGER'">Datos personales</h2>
+  <mat-card *ngIf="loginService.user.rol === 'COMPANY_MANAGER'">
+    <mat-card-content>
+      <mat-form-field class="full-width" appearance="standard">
+        <mat-label>{{ "email" | translate }}</mat-label>
+        <input matInput type="email" formControlName="email" />
+      </mat-form-field>
+
+      <mat-form-field class="full-width" appearance="standard">
+        <mat-label>{{ "name" | translate }}</mat-label>
+        <input matInput type="text" formControlName="name" />
+      </mat-form-field>
+
+      <mat-form-field class="full-width" appearance="standard">
+        <mat-label>{{ "first_surname" | translate }}</mat-label>
+        <input matInput type="text" formControlName="firstSurname" />
+      </mat-form-field>
+
+      <mat-form-field class="full-width" appearance="standard">
+        <mat-label>{{ "second_surname" | translate }}</mat-label>
+        <input matInput type="text" formControlName="secondSurname" />
+      </mat-form-field>
+
+      <!-- <mat-card-actions align="start">
+        <button mat-flat-button type="submit" class="button">
+          <fa-icon [icon]="faSpinner" *ngIf="waiting"></fa-icon>
+          {{ "save" | translate }}
+        </button>
+        <button mat-flat-button type="button" class="button">
+          {{ "cancel" | translate }}
+        </button>
+      </mat-card-actions> -->
+      <mat-dialog-actions>
+        <button class="mat-raised-button">{{ "cancel" | translate }}</button>
+        <button class="mat-raised-button mat-primary" (click)="save()">
+          {{ "save" | translate }}
+        </button>
+      </mat-dialog-actions>
+    </mat-card-content>
+  </mat-card>
+  <h2 class="password-container">Cambiar contraseña</h2>
+  <mat-card>
+    <mat-card-content>
+      <mat-form-field class="full-width" appearance="standard">
+        <mat-label>Contraseña actual</mat-label>
+        <input matInput type="password" formControlName="actualPassword" />
+      </mat-form-field>
+
+      <mat-form-field class="full-width" appearance="standard">
+        <mat-label
+          >{{ "new" | translate }} {{ "password" | translate }}</mat-label
+        >
+        <input matInput type="password" formControlName="password" />
+      </mat-form-field>
+
+      <mat-form-field class="full-width" appearance="standard">
+        <mat-label
+          >{{ "confirm" | translate }} {{ "new" | translate }}
+          {{ "password" | translate }}</mat-label
+        >
+        <input matInput type="password" formControlName="confirmPassword" />
+      </mat-form-field>
+
+      <mat-dialog-actions>
+        <button class="mat-raised-button">{{ "cancel" | translate }}</button>
+        <button class="mat-raised-button mat-primary" (click)="save()">
+          {{ "save" | translate }}
+        </button>
+      </mat-dialog-actions>
+    </mat-card-content>
+  </mat-card>
+</form>

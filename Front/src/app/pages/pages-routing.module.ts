@@ -16,6 +16,7 @@ import { WorkgroupsEmployeesResolver } from './employee/resolvers/workgroups-emp
 import { SharedEmployeeKeysComponent } from './employee/shared-keys/shared-employee-keys/shared-employee-keys.component';
 import { SharedKeysComponent } from './employee/shared-keys/shared-keys.component';
 import { WorkGroupsEmployeesComponent } from './employee/work-groups-employees/work-groups-employees.component';
+import { ProfileComponent } from './profile/profile.component';
 
 const routes: Routes = [
   {
@@ -80,6 +81,14 @@ const routes: Routes = [
           logs: AdminLogsResolveer,
         },
       },
+      {
+        path: 'profile',
+        component: ProfileComponent,
+        canActivate: [AuthGuard],
+        data: {
+          rol: 'COMPANY_MANAGER',
+        },
+      },
     ],
   },
   {
@@ -126,6 +135,14 @@ const routes: Routes = [
         },
         resolve: {
           workgroups: WorkgroupsEmployeesResolver,
+        },
+      },
+      {
+        path: 'profile',
+        component: ProfileComponent,
+        canActivate: [AuthGuard],
+        data: {
+          rol: 'EMPLOYEE',
         },
       },
     ],

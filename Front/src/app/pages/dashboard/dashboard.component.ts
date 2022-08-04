@@ -64,7 +64,7 @@ export class DashboardComponent implements OnInit, OnDestroy, AfterViewInit {
     readonly media: MediaMatcher,
     private router: Router,
     private readonly translate: TranslateService,
-    private readonly loginService: LoginService
+    readonly loginService: LoginService
   ) {}
 
   ngOnInit(): void {
