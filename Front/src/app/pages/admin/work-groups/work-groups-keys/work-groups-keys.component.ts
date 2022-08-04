@@ -17,6 +17,7 @@ export class WorkGroupsKeysComponent implements OnInit {
   keys: Key[] = [];
   searchText: string = '';
   workgroupId: string = '';
+  workgroupName: string = '';
 
   constructor(
     protected readonly dialog: MatDialog,
@@ -40,7 +41,10 @@ export class WorkGroupsKeysComponent implements OnInit {
           this.workgroupId
         )
         .pipe(take(1))
-        .subscribe((res) => (this.keys = res.keys));
+        .subscribe((res) => {
+          this.keys = res.keys;
+          this.workgroupName = res.keys[0].workgroups[0].name;
+        });
     });
   }
 

@@ -1,6 +1,6 @@
 import { Employee } from '../pages/models/employee-model';
 
-export interface WorkGroup {
+export interface Workgroup {
   id?: string;
   name?: string;
   companyId?: string;

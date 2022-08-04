@@ -33,7 +33,7 @@
     <input matInput type="url" formControlName="URL" />
   </mat-form-field>
 
-  <mat-form-field class="full-width">
+  <!-- <mat-form-field class="full-width">
     <mat-label>{{ "Imagen del servicio" | translate }} </mat-label>
     <ngx-mat-file-input
       formControlName="image"
@@ -43,21 +43,21 @@
     >
       <mat-icon ngxMatFileInputIcon>attach_file</mat-icon>
     </ngx-mat-file-input>
-  </mat-form-field>
+  </mat-form-field> -->
 
   <mat-form-field class="full-width">
     <mat-chip-list #chipList>
       <mat-chip
-        *ngFor="let workGroup of chipSelectedWorkGroups"
+        *ngFor="let workgroup of chipSelectedWorkGroups"
         [selectable]="true"
         [removable]="true"
-        (removed)="removeWorkGroup(workGroup)"
+        (removed)="removeWorkGroup(workgroup)"
       >
-        {{ workGroup.name }}
+        {{ workgroup.name }}
         <mat-icon matChipRemove>cancel</mat-icon>
       </mat-chip>
       <input
-        placeholder="Your WorkGroup"
+        placeholder="Grupos de trabajo"
         #workGroupInput
         [formControl]="workGroupControl"
         [matAutocomplete]="auto"
@@ -82,6 +82,8 @@
 </mat-dialog-content>
 
 <mat-dialog-actions>
-  <button class="mat-raised-button" (click)="close()">Close</button>
-  <button class="mat-raised-button mat-primary" (click)="save()">Save</button>
+  <button class="mat-raised-button" (click)="close()">Cancelar</button>
+  <button class="mat-raised-button mat-primary" (click)="save()">
+    Guardar
+  </button>
 </mat-dialog-actions>

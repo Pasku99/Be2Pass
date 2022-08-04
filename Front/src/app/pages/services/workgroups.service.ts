@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { WorkGroup } from 'src/app/models/work-group.model';
+import { Workgroup } from 'src/app/models/work-group.model';
 import { environment } from 'src/environments/environment';
 
 const base_url = environment.base_url;
@@ -31,7 +31,7 @@ export class WorkgroupsService {
     );
   }
 
-  createWorkgroup(workgroup: WorkGroup): Observable<any> {
+  createWorkgroup(workgroup: Workgroup): Observable<any> {
     return this.http.post(
       `${base_url}/${version}/workgroups`,
       workgroup,

@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { firstValueFrom, take } from 'rxjs';
 import { LoginService } from 'src/app/auth/login/services/login.service';
-import { WorkGroup } from 'src/app/models/work-group.model';
+import { Workgroup } from 'src/app/models/work-group.model';
 import { WorkgroupsService } from '../../services/workgroups.service';
 import { AddNewWorkGroupDialogComponent } from './add-new-work-group-dialog/add-new-work-group-dialog.component';
 
@@ -13,7 +13,7 @@ import { AddNewWorkGroupDialogComponent } from './add-new-work-group-dialog/add-
 })
 export class WorkGroupsComponent implements OnInit {
   breakpoint: number = 0;
-  workgroups: WorkGroup[] = [];
+  workgroups: Workgroup[] = [];
 
   constructor(
     protected readonly dialog: MatDialog,
@@ -61,7 +61,7 @@ export class WorkGroupsComponent implements OnInit {
   async openAddNewWorkGroupDialog(): Promise<void> {
     const workgroup = await firstValueFrom(
       this.dialog
-        .open<AddNewWorkGroupDialogComponent, any, WorkGroup>(
+        .open<AddNewWorkGroupDialogComponent, any, Workgroup>(
           AddNewWorkGroupDialogComponent,
           {
             disableClose: true,

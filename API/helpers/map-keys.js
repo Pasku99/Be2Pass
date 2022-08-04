@@ -1,5 +1,6 @@
 const WorkGroup = require('../models/workgroups');
 const User = require('../models/users');
+const { ObjectID } = require('bson');
 
 const mapKeys = async(keys) => {
     return await Promise.all(keys.map(async(key) => ({
@@ -10,7 +11,7 @@ const mapKeys = async(keys) => {
       service: key.service,
       URL: key.URL,
       isShared: key.isShared,
-      workGroup: await WorkGroup.findById(key.groupId)
+      workgroups: await WorkGroup.find({ _id: { $in: key.workGroupsIds.map(ObjectID) } })
     })))
 }
 

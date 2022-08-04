@@ -8,17 +8,17 @@ const router = Router();
 
 router.get('/', [
     validateJWT,
-    check('idAdmin', 'El id de administrador es obligatorio').not().isEmpty().isMongoId(),
-    check('companyId', 'El id de empresa es obligatorio').not().isEmpty().isMongoId(),
+    check('idAdmin', 'El id de administrador es obligatorio').not().isEmpty().escape().isMongoId(),
+    check('companyId', 'El id de empresa es obligatorio').not().isEmpty().escape().isMongoId(),
     validateFields,
 ], getEmployees);
 
 router.post('/', [
-    check('idAdmin', 'El id de administrador es obligatorio').not().isEmpty().isMongoId(),
-    check('employees.*.name', 'El argumento email debe ser un email').not().isEmpty().isString().isLength({max: 20}),
-    check('employees.*.firstSurname', 'El argumento firstSurname debe ser un firstSurname').not().isEmpty().isString().isLength({max: 20}),
-    check('employees.*.secondSurname', 'El argumento secondSurname debe ser un secondSurname').optional({nullable: true}).isString().isLength({max: 20}),
-    check('employees.*.email', 'El argumento email debe ser un email').not().isEmpty().isEmail(),
+    check('idAdmin', 'El id de administrador es obligatorio').not().isEmpty().escape().isMongoId(),
+    check('employees.*.name', 'El argumento nombre debe ser un nombre').not().isEmpty().isAlpha('es-ES').trim().escape().isLength({max: 30}),
+    check('employees.*.firstSurname', 'El primer apellido es obligatorio').not().isEmpty().isAlpha('es-ES').trim().escape().isLength({max: 30}),
+    check('employees.*.secondSurname', 'El argumento secondSurname debe ser un secondSurname').optional({nullable: true}).isString().trim().escape().matches(/^[a-zA-Z\u00C0-\u00FF]*$/).isLength({max: 30}),
+    check('employees.*.email', 'El argumento email debe ser un email').not().isEmpty().normalizeEmail().isEmail(),
     validateFields,
 ], createUser);
 

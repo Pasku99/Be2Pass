@@ -5,6 +5,7 @@ const Key = require('../models/keys');
 const { infoToken } = require('../helpers/info-token');
 const { response } = require('express');
 const { ObjectID } = require('bson');
+const { mapKeys } = require('../helpers/map-keys');
 
 const getWorkgroups = async(req, res = response) => {
     const token = req.header('x-token');
@@ -89,7 +90,7 @@ const getWorkgroupsKeys = async(req, res = response) => {
         res.json({
             ok: true,
             msg: 'getWorkgroupKeys',
-            keys: keys
+            keys: await mapKeys(keys)
         })
     } catch (error) {
         console.log(error);

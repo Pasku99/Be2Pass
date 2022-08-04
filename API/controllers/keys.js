@@ -84,7 +84,7 @@ const createKey = async(req, res = response) => {
             username,
             URL,
             isShared,
-            workGroupsIds: workGroupsFound.map((workGroup) => workGroup.id),
+            workGroupsIds: workGroupsFound.map((workgroup) => workgroup.id),
         })
 
         const savedKey = await newKey.save();
@@ -104,7 +104,7 @@ const createKey = async(req, res = response) => {
                     service: savedKey.service,
                     URL: savedKey.URL,
                     isShared: savedKey.isShared,
-                    workGroups: workGroupsFound
+                    workgroups: workGroupsFound
                 }
         })
     } catch (error) {
@@ -171,7 +171,7 @@ const createWorkgroupKey = async(req, res = response) => {
                     service: savedKey.service,
                     URL: savedKey.URL,
                     isShared: savedKey.isShared,
-                    workGroups: [workgroupId]
+                    workgroups: [workgroupId]
                 }
         })
     } catch (error) {
@@ -186,7 +186,7 @@ const createWorkgroupKey = async(req, res = response) => {
 const editKey = async(req, res = response) => {
     const token = req.header('x-token');
     const keyId = req.query.keyId;
-    const { userId, key, username, service, URL, isShared, workGroups } = req.body;
+    const { userId, key, username, service, URL, isShared, workgroups } = req.body;
     try {        
         if (!(infoToken(token).id === userId)) {
             return res.status(400).json({
@@ -203,8 +203,8 @@ const editKey = async(req, res = response) => {
         }
         
         let workGroupsFound = [];
-        if(workGroups.length > 0) {
-            workGroupsFound = await WorkGroup.findById(workGroups.map((workGroup) => workGroup.id))
+        if(workgroups.length > 0) {
+            workGroupsFound = await WorkGroup.findById(workgroups.map((workgroup) => workgroup.id))
             if(!workGroupsFound) {
                 return res.status(400).json({
                     ok: false,
@@ -218,7 +218,7 @@ const editKey = async(req, res = response) => {
             service: service,
             URL: URL,
             isShared: isShared,
-            workGroup: workGroupsFound
+            workgroup: workGroupsFound
         }, { new: true });
         if(!updatedKey){
             return res.status(400).json({
@@ -237,7 +237,7 @@ const editKey = async(req, res = response) => {
                     service: updatedKey.service,
                     URL: updatedKey.URL,
                     isShared: updatedKey.isShared,
-                    workGroup: workGroupsFound
+                    workgroup: workGroupsFound
                 }
         })
     } catch (error) {

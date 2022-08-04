@@ -1,5 +1,5 @@
 import { User } from './user.model';
-import { WorkGroup } from './work-group.model';
+import { Workgroup } from './work-group.model';
 
 export interface Key {
   id?: string;
@@ -9,5 +9,5 @@ export interface Key {
   service?: string;
   URL?: string;
   isShared?: boolean;
-  workGroups?: WorkGroup[];
+  workgroups?: Workgroup[];
 }

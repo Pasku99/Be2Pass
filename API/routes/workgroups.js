@@ -24,7 +24,7 @@ router.get('/company/:companyId/user/:userId/workgroup/:workgroupId', [
     validateJWT,
     check('userId', 'El id del usuario es obligatorio').not().isEmpty().isMongoId(),
     check('companyId', 'El id de la empresa es obligatorio').not().isEmpty().isMongoId(),
-    check('workgroupId', 'El id del grupo de trabajo es obligatorio').not().isEmpty().isMongoId(),
+    check('workgroupId', 'El id del grupo de trabajo es obligatorio').not().isEmpty().escape().isMongoId(),
     validateFields,
 ], getWorkgroupsKeys);
 

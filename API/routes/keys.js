@@ -43,7 +43,7 @@ router.put('/', [
     check('username', 'El nombre de usuario o email es obligatorio').optional().isString().isLength({max: 25}),
     check('URL', 'La URL es obligatoria').not().isEmpty().isURL(),
     check('isShared', 'La opción de compartir ha de ser booleano').optional().isBoolean(),
-    check('workGroups.*.id', 'El id del grupo de trabajo ha de ser id').optional().isMongoId(),
+    check('workgroups.*.id', 'El id del grupo de trabajo ha de ser id').optional().isMongoId(),
     validateFields,
 ], editKey);
 

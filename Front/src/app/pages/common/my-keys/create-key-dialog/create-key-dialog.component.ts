@@ -13,10 +13,11 @@ import {
 } from '@angular/material/autocomplete';
 import { MatChipInputEvent } from '@angular/material/chips';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { DomSanitizer } from '@angular/platform-browser';
 import { TranslateService } from '@ngx-translate/core';
 import { catchError, map, Observable, startWith, take, throwError } from 'rxjs';
 import { LoginService } from 'src/app/auth/login/services/login.service';
-import { WorkGroup } from 'src/app/models/work-group.model';
+import { Workgroup } from 'src/app/models/work-group.model';
 import { KeysService } from 'src/app/pages/services/keys.service';
 import { WorkgroupsService } from 'src/app/pages/services/workgroups.service';
 import { FormBase } from 'src/app/utils/form-controls/form.base';
@@ -38,8 +39,8 @@ export class CreateKeyDialogComponent extends FormBase<any> implements OnInit {
 
   filteredWorkGroups!: Observable<String[]>;
   hide: boolean = true;
-  chipSelectedWorkGroups: WorkGroup[] = [];
-  allWorkGroups: WorkGroup[] = [];
+  chipSelectedWorkGroups: Workgroup[] = [];
+  allWorkGroups: Workgroup[] = [];
 
   private allowFreeTextAddWorkGroup: boolean = false;
 
@@ -67,7 +68,7 @@ export class CreateKeyDialogComponent extends FormBase<any> implements OnInit {
       service: [null, Validators.required],
       URL: [null, Validators.required],
       // image: [null, FileValidator.maxContentSize(5242880)],
-      workGroup: [null],
+      workgroup: [null],
     });
   }
 
@@ -91,72 +92,46 @@ export class CreateKeyDialogComponent extends FormBase<any> implements OnInit {
 
   private filterOnValueChange(workGroupName: string | null): String[] {
     let result: String[] = [];
-    //
-    // Remove the WorkGroups we have already selected from all WorkGroups to
-    // get a starting point for the autocomplete list.
-    //
     let allWorkGroupsLessSelected = this.allWorkGroups.filter(
-      (workGroup) => this.chipSelectedWorkGroups.indexOf(workGroup) < 0
+      (workgroup) => this.chipSelectedWorkGroups.indexOf(workgroup) < 0
     );
     if (workGroupName) {
       result = this.filterWorkGroup(allWorkGroupsLessSelected, workGroupName);
     } else {
       result = allWorkGroupsLessSelected.map(
-        (workGroup) => workGroup.name as string
+        (workgroup) => workgroup.name as string
       );
     }
     return result;
   }
 
   private filterWorkGroup(
-    workGroupList: WorkGroup[],
+    workGroupList: Workgroup[],
     workGroupName: String
   ): String[] {
-    let filteredWorkGroupList: WorkGroup[] = [];
+    let filteredWorkGroupList: Workgroup[] = [];
     const filterValue = workGroupName.toLowerCase();
     let workGroupsMatchingWorkgroupName = workGroupList.filter(
-      (workGroup) => workGroup?.name?.toLowerCase().indexOf(filterValue) === 0
+      (workgroup) => workgroup?.name?.toLowerCase().indexOf(filterValue) === 0
     );
     if (
       workGroupsMatchingWorkgroupName.length ||
       this.allowFreeTextAddWorkGroup
     ) {
-      //
-      // either the WorkGroup name matched some autocomplete options
-      // or the name didn't match but we're allowing
-      // non-autocomplete WorkGroup names to be entered
-      //
       filteredWorkGroupList = workGroupsMatchingWorkgroupName;
     } else {
-      //
-      // the WorkGroup name didn't match the autocomplete list
-      // and we're only allowing WorkGroups to be selected from the list
-      // so we show the whjole list
-      //
       filteredWorkGroupList = workGroupList;
     }
-    //
-    // Convert filtered list of WorkGroup objects to list of WorkGroup
-    // name strings and return it
-    //
-    return filteredWorkGroupList.map((workGroup) => workGroup.name as string);
+    return filteredWorkGroupList.map((workgroup) => workgroup.name as string);
   }
 
   addWorkGroup(event: MatChipInputEvent): void {
     if (!this.allowFreeTextAddWorkGroup) {
-      // only allowed to select from the filtered autocomplete list
       return;
     }
-
-    //
-    // Only add when MatAutocomplete is not open
-    // To make sure this does not conflict with OptionSelected Event
-    //
     if (this.matAutocomplete.isOpen) {
       return;
     }
-
-    // Add our WorkGroup
     const value = event.value;
     if ((value || '').trim()) {
       this.selectWorkGroupByName(value.trim());
@@ -167,21 +142,14 @@ export class CreateKeyDialogComponent extends FormBase<any> implements OnInit {
 
   private selectWorkGroupByName(workGroupName: any) {
     let foundWorkGroup = this.allWorkGroups.filter(
-      (workGroup) => workGroup.name == workGroupName
+      (workgroup) => workgroup.name == workGroupName
     );
     if (foundWorkGroup.length) {
-      //
-      // We found the workGroup name in the allWorkgroups list
-      //
       this.chipSelectedWorkGroups.push(foundWorkGroup[0]);
     } else {
-      //
-      // Create a new workGroup, assigning a new higher workGroupId
-      // This is the use case when allowFreeTextAddworkGroup is true
-      //
       let highestWorkGroupId = Math.max(
-        ...this.chipSelectedWorkGroups.map((workGroup) =>
-          parseInt(workGroup.id as string)
+        ...this.chipSelectedWorkGroups.map((workgroup) =>
+          parseInt(workgroup.id as string)
         ),
         0
       );
@@ -192,8 +160,8 @@ export class CreateKeyDialogComponent extends FormBase<any> implements OnInit {
     }
   }
 
-  removeWorkGroup(workGroup: WorkGroup): void {
-    const index = this.chipSelectedWorkGroups.indexOf(workGroup);
+  removeWorkGroup(workgroup: Workgroup): void {
+    const index = this.chipSelectedWorkGroups.indexOf(workgroup);
     if (index >= 0) {
       this.chipSelectedWorkGroups.splice(index, 1);
       this.resetInputs();
@@ -201,9 +169,7 @@ export class CreateKeyDialogComponent extends FormBase<any> implements OnInit {
   }
 
   private resetInputs() {
-    // clear input element
     this.workGroupInput.nativeElement.value = '';
-    // clear control value and trigger WorkGroupControl.valueChanges event
     if (this.workGroupControl) this.workGroupControl.setValue(null);
   }
 
@@ -257,7 +223,7 @@ export class CreateKeyDialogComponent extends FormBase<any> implements OnInit {
             this.loginService.user.privateKey as string
           ),
           workGroupsIds: this.chipSelectedWorkGroups.map(
-            (workGroup) => workGroup.id
+            (workgroup) => workgroup.id
           ),
         },
         this.loginService.user.id as string
@@ -329,6 +295,6 @@ export class CreateKeyDialogComponent extends FormBase<any> implements OnInit {
   }
 
   get workGroupControl(): FormControl {
-    return this.form.get('workGroup') as FormControl;
+    return this.form.get('workgroup') as FormControl;
   }
 }

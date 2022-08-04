@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { take } from 'rxjs';
 import { LoginService } from 'src/app/auth/login/services/login.service';
-import { WorkGroup } from 'src/app/models/work-group.model';
+import { Workgroup } from 'src/app/models/work-group.model';
 import { WorkgroupsService } from '../../services/workgroups.service';
 
 @Component({
@@ -11,7 +11,7 @@ import { WorkgroupsService } from '../../services/workgroups.service';
 })
 export class WorkGroupsEmployeesComponent implements OnInit {
   breakpoint: number = 0;
-  workgroups: WorkGroup[] = [];
+  workgroups: Workgroup[] = [];
 
   constructor(
     private readonly workgroupsService: WorkgroupsService,
