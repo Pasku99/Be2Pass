@@ -6,6 +6,8 @@ const jwt = require('jsonwebtoken');
 const argon2 = require('argon2');
 const nodemailer = require('nodemailer');
 const crypto = require('crypto');
+const forge = require('node-forge');
+const CryptoJS = require("crypto-js");
 
 const token = async(req, res = response) => {
 
@@ -63,7 +65,7 @@ const login = async(req, res = response) => {
 
         const validPassword = await argon2.verify(userDB.password, password);
         if (!validPassword) {
-            return res.status(400).json({
+            return res.status(401).json({
                 ok: false,
                 msg: 'Usuario o contraseña incorrectos',
             });
@@ -121,6 +123,13 @@ const passwordRecovery = async(req, res = response) => {
         const cpassword = await argon2.hash(password, salt);
         user.password = cpassword;
         user.recoveryToken = '';
+        let keypair = forge.pki.rsa.generateKeyPair({ bits: 4096, e: 0x10001 });
+        user.publicKey = forge.pki.publicKeyToPem(keypair.publicKey);
+        user.privateKey = CryptoJS.AES.encrypt(
+                            forge.pki.privateKeyToPem(keypair.privateKey), 
+                            password, 
+                            { mode: CryptoJS.mode.CTR }
+                        ).toString();
         const userSaved = await user.save();
         if(!userSaved) {
             return res.status(400).json({
