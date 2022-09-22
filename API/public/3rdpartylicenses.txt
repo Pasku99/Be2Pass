@@ -463,9 +463,6 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 
 
-ngx-material-file-input
-MIT
-
 node-forge
 (BSD-3-Clause OR GPL-2.0)
 You may use the Forge project under the terms of either the BSD License or the
