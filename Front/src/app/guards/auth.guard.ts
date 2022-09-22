@@ -46,7 +46,6 @@ export class AuthGuard implements CanActivate {
             .subscribe((res) => {
               if (res.ok) {
                 for (const transit of res.transits) {
-                  console.log(transit);
                   this.snackBar.openFromComponent(NotificationComponent, {
                     data: {
                       message:

@@ -56,7 +56,6 @@ export class PasswordRecoveryComponent extends FormBase<any> implements OnInit {
     ) {
       this.areEqual = true;
       this.route.paramMap.subscribe((param) => {
-        console.log(param);
         this.passwordRecoveryService
           .passwordRecovery({
             recoveryToken: param.get('recoveryToken') as string,

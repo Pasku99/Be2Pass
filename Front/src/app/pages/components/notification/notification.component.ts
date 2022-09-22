@@ -85,8 +85,8 @@ export class NotificationComponent implements OnInit {
               encryptedUserKey
             )
             .pipe(take(1))
-            .subscribe((res) => {
-              console.log(res);
+            .subscribe(() => {
+              this.snackBarRef.dismiss();
             });
         } else {
           this.openMasterPasswordDialog(false);
